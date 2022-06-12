@@ -3,10 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
+    protected $user;
+    /**
+     * constructor method
+     * 
+     * create instance of user controller
+     */
+    public function __construct(UserController $user)
+    {
+         $this->user = $user;
+    }
+
     /**
      * Get the list of client
      * 
@@ -41,18 +53,16 @@ class ClientController extends Controller
         $request->validate([
             'first_name'           => 'required',
             'last_name'            => 'required',
-            'email'                => 'required|email',
+            'email'                => 'required|email|unique:clients',
             'company'              => 'required',
             'company_website'      => 'required',
-            'connect_by'           => 'required',
-            'social_profile'       => 'required',
-            'communication_medium' => 'required',
-            'communication_link'   => 'required',
-            'date_of_birth'        => 'required',
-            'gender'               => 'required',
+            'gender'               => 'required|not_in:0',
         ]);
 
+        //client role
+        $role = 3;
         $client = Client::create($request->all());
+        $this->user->store($request, $role);
         return redirect()->route('client.index')->with('success', 'Client created successfully.');
     }
 
@@ -96,15 +106,10 @@ class ClientController extends Controller
         $request->validate([
             'first_name'           => 'required',
             'last_name'            => 'required',
-            'email'                => 'required|email',
+            'email'                => 'required|email|unique:clients',
             'company'              => 'required',
             'company_website'      => 'required',
-            'connect_by'           => 'required',
-            'social_profile'       => 'required',
-            'communication_medium' => 'required',
-            'communication_link'   => 'required',
-            'date_of_birth'        => 'required',
-            'gender'               => 'required',
+            'gender'               => 'required|not_in:0',
         ]);
         $client =  Client::where('client_id', $id)->update($request->except(['_method', '_token']));
         return redirect()->route('client.index')->with('success', 'Client updated successfully.');

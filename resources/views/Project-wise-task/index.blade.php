@@ -12,7 +12,7 @@ Task
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item">Task</li>
-                    <li class="breadcrumb-item">List</li> 
+                    <li class="breadcrumb-item">Project-wise-tasks</li>
                 </ol>
             </div>
             <div class="col-sm-6">
@@ -51,7 +51,7 @@ Task
 
                                 </div>
                                 <div class="col-md-6 p-0">
-                                    <div class="form-group mb-0 me-0"></div><a class="btn btn-primary" href="{{ url('task/create') }}"> <i data-feather="plus-square"> </i>Create New Task</a>
+                                    <div class="form-group mb-0 me-0"></div><a class="btn btn-primary" href="{{ url('project/'.$project_id.'/tasks/create') }}"> <i data-feather="plus-square"> </i>Create New Task</a>
                                 </div>
                             </div>
                         </div>
@@ -96,9 +96,10 @@ Task
                                         <a class="me-2" href="{{ url('taskprogress/'.$task->task_id.'/show') }}"><i data-feather="link"></i></a>
                                         <a href="{{ url('task/'.$task->task_id.'/edit') }}"><i data-feather="more-horizontal"></i></a>
 
-                                        <a href="#" onclick="deleteTask('{{$task->task_id}}')"><i data-feather="trash-2"></i></a>
-                                        <form id="delete-{{ $task->task_id }}" action="{{ url('task/'.$task->task_id) }}" method="post" style="display: none;">
+                                        <a href="#" onclick="projectWiseTaskDelete('{{$task->task_id}}')"><i data-feather="trash-2"></i></a>
+                                        <form id="delete-{{ $task->task_id }}" action="{{ url('project/'.$task->task_id.'/tasks/delete') }}" method="post" style="display: none;">
                                             @csrf
+                                            @method('DELETE')
                                         </form>
                                     </td>
                                 </tr>
@@ -128,10 +129,9 @@ Task
 
 @push('js')
 <script>
-    function deleteTask(taskId)
-    {
-       alert('are you sure want to delete this ?')
-       document.getElementById("delete-"+taskId).submit();
+    function projectWiseTaskDelete(taskId) {
+        alert('are you sure want to delete this ?')
+        document.getElementById("delete-" + taskId).submit();
     }
 </script>
 @endpush

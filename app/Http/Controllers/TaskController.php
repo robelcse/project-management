@@ -108,10 +108,62 @@ class TaskController extends Controller
     }
 
 
+    /**
+     * Show project wise task list
+     * 
+     * @param int $project_id
+     * 
+     * @return Array of task
+     */
     public function projectWiseTasks($project_id)
     {
-
         $tasks = Task::where('project_id', $project_id)->get();
-        return view('Task.project-wise-tasks',compact('tasks'));
+        return view('Project-wise-task.index', compact('tasks', 'project_id'));
+    }
+
+    /**
+     * Projectwise task create
+     * 
+     * 
+     */
+    public function projectWiseTaskCreate($project_id)
+    {
+        $developers = Developer::orderBy('developer_id', 'desc')->get();
+        $projects = Project::orderBy('project_id', 'desc')->get();
+        return view('Project-wise-task.create', compact('developers', 'projects', 'project_id'));
+    }
+
+    /**
+     * Projectwise task store
+     * 
+     * 
+     */
+    public function projectWiseTaskStore(Request $request)
+    {
+
+        $request->validate([
+            'title'        => 'required',
+            'description'  => 'required',
+            'start_date'   => 'required',
+            'due_date'     => 'required',
+            'priority'     => 'required',
+            'developer_id' => 'required',
+            'project_id' => 'required'
+        ]);
+
+        $project_id = $request->project_id;
+        $task = Task::create($request->all());
+        return redirect('project/' . $project_id . '/tasks')->with('success', 'Task created successfully.');
+    }
+
+    /**
+     * Project wise task delete
+     * 
+     * 
+     */
+    public function projectWiseTaskDelete($task_id)
+    {
+        $task = Task::where('task_id', $task_id)->delete();
+        return redirect()->back()->with('success', 'Task deleted successfully.');
     }
 }

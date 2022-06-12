@@ -11,7 +11,7 @@ Project
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item">Project </li>
-                    <li class="breadcrumb-item">Create</li> 
+                    <li class="breadcrumb-item">Create</li>
                 </ol>
             </div>
             <div class="col-sm-6">
@@ -43,20 +43,22 @@ Project
             <div class="card">
 
                 <div class="card-body">
-                    <form class="needs-validation" novalidate="" method="post" action={{ url('projects') }}>
+                    <form novalidate="" method="post" action={{ url('projects') }}>
                         @csrf
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label" for="validationCustom01">Project Name</label>
-                                <input class="form-control" id="validationCustom01" type="text" name="project_name" required="" />
-                                <div class="invalid-feedback">Please enter project name!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <input class="{{ $errors->has('project_name') ? 'form-control is-invalid':'form-control' }}" id="validationCustom01" type="text" name="project_name" required="" />
+                                @if($errors->has('project_name'))
+                                <div class="invalid-feedback">{{ $errors->first('project_name') }}</div>
+                                @endif
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label" for="validationTextarea">Description</label>
-                                <textarea class="form-control" id="validationTextarea" name="description" rows="1" required=""></textarea>
-                                <div class="invalid-feedback">Please enter project descriptino!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <textarea class="{{ $errors->has('description') ? 'form-control is-invalid':'form-control' }}" id="validationTextarea" name="description" rows="1" required=""></textarea>
+                                @if($errors->has('description'))
+                                <div class="invalid-feedback">{{ $errors->first('description') }}</div>
+                                @endif
                             </div>
                         </div>
                         <div class="row g-3">
@@ -68,8 +70,9 @@ Project
                                     <option value="{{ $client->client_id }}">{{ $client->first_name.' '.$client->last_name }}</option>
                                     @endforeach
                                 </select>
-                                <div class="invalid-feedback">Please select client!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                @if($errors->has('client_id'))
+                                <div style="color: red;font-size:0.875em;margin-top:0.25rem;">{{ $errors->first('client_id') }}</div>
+                                @endif
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label" for="validationCustom04">Developer</label>
@@ -79,54 +82,62 @@ Project
                                     <option value="{{ $developer->developer_id }}">{{ $developer->first_name.' '.$developer->last_name }}</option>
                                     @endforeach
                                 </select>
-                                <div class="invalid-feedback">Please select developer!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                @if($errors->has('developer_id'))
+                                <div style="color: red;font-size:0.875em;margin-top:0.25rem;">{{ $errors->first('developer_id') }}</div>
+                                @endif
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label" for="validationCustom01">Budget</label>
-                                <input class="form-control" id="validationCustom01" type="text" name="budget" required="" />
-                                <div class="invalid-feedback">Please enter budget!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <input class="{{ $errors->has('budget') ? 'form-control is-invalid':'form-control' }}" id="validationCustom01" type="text" name="budget" required="" />
+                                @if($errors->has('budget'))
+                                <div class="invalid-feedback">{{ $errors->first('budget') }}</div>
+                                @endif
                             </div>
                         </div>
                         <div class="row g-3">
                             <div class="col-md-4">
                                 <label class="form-label" for="validationCustom01">Start Date</label>
-                                <input class="form-control" id="validationCustom01" type="date" name="start_date" required="" />
-                                <div class="invalid-feedback">Please enter start date!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <input class="{{ $errors->has('start_date') ? 'form-control is-invalid':'form-control' }}" id="validationCustom01" type="date" name="start_date" required="" />
+                                @if($errors->has('start_date'))
+                                <div class="invalid-feedback">{{ $errors->first('start_date') }}</div>
+                                @endif
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label" for="validationCustom01">End Date</label>
-                                <input class="form-control" id="validationCustom01" type="date" name="end_date" required="" />
-                                <div class="invalid-feedback">Please enter end date!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <input class="{{ $errors->has('end_date') ? 'form-control is-invalid':'form-control' }}" id="validationCustom01" type="date" name="end_date" required="" />
+                                @if($errors->has('end_date'))
+                                <div class="invalid-feedback">{{ $errors->first('end_date') }}</div>
+                                @endif
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label" for="validationTextarea">Technologies</label>
-                                <textarea class="form-control" id="validationTextarea" name="technologies" rows="1" required=""></textarea>
-                                <div class="invalid-feedback">Please enter project technologors!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <textarea class="{{ $errors->has('technologies') ? 'form-control is-invalid':'form-control' }}" id="validationTextarea" name="technologies" rows="1" required=""></textarea>
+                                @if($errors->has('technologies'))
+                                <div class="invalid-feedback">{{ $errors->first('technologies') }}</div>
+                                @endif
                             </div>
                         </div>
                         <div class="row g-3">
                             <div class="col-md-4">
                                 <label class="form-label" for="validationCustom03">Live Link</label>
-                                <input class="form-control" id="validationCustom03" type="text" name="live_link" />
-                                <div class="invalid-feedback">Please provide a valid date of birth!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <input class="{{ $errors->has('picture') ? 'form-control is-invalid':'form-control' }}" id="validationCustom03" type="text" name="live_link" />
+                                @if($errors->has('live_link'))
+                                <div class="invalid-feedback">{{ $errors->first('live_link') }}</div>
+                                @endif
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label" for="validationCustom03">Demo Link</label>
-                                <input class="form-control" id="validationCustom03" type="text" name="demo_link" />
-                                <div class="invalid-feedback">Please provide a valid date of birth!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <input class="{{ $errors->has('demo_link') ? 'form-control is-invalid':'form-control' }}" id="validationCustom03" type="text" name="demo_link" />
+                                @if($errors->has('demo_link'))
+                                <div class="invalid-feedback">{{ $errors->first('demo_link') }}</div>
+                                @endif
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label" for="validationCustom03">Github Link</label>
-                                <input class="form-control" id="validationCustom03" type="text" name="git_link" />
-                                <div class="invalid-feedback">Please provide a valid date of birth!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <input class="{{ $errors->has('git_link') ? 'form-control is-invalid':'form-control' }}" id="validationCustom03" type="text" name="git_link" />
+                                @if($errors->has('git_link'))
+                                <div class="invalid-feedback">{{ $errors->first('git_link') }}</div>
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3">

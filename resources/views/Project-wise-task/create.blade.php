@@ -43,10 +43,11 @@ Task
             <div class="card">
 
                 <div class="card-body">
-                    <form novalidate="" method="post" action={{ url('tasks') }}>
+                    <form novalidate="" method="post" action={{ route('projectWiseTaskStore') }}>
                         @csrf
                         <div class="row g-3">
                             <div class="col-md-6">
+                                <input type="hidden" name="project_id" value="{{ $project_id }}" />
                                 <input type="hidden" name="status" value="0" />
                                 <label class="form-label" for="validationCustom01">Title</label>
                                 <input class="{{ $errors->has('title') ? 'form-control is-invalid':'form-control' }}" id="validationCustom01" type="text" name="title" required="" />
@@ -101,18 +102,6 @@ Task
                                 </select>
                                 @if($errors->has('developer_id'))
                                 <div style="color: red;font-size:0.875em;margin-top:0.25rem;">{{ $errors->first('developer_id') }}</div>
-                                @endif
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label" for="validationCustom04">Project</label>
-                                <select class="form-select" id="validationCustom04" name="project_id" required="">
-                                    <option selected="" disabled="" value="0">Select Project...</option>
-                                    @foreach($projects as $project)
-                                    <option value="{{ $project->project_id }}">{{ $project->project_name }}</option>
-                                    @endforeach
-                                </select>
-                                @if($errors->has('project_id'))
-                                <div style="color: red;font-size:0.875em;margin-top:0.25rem;">{{ $errors->first('project_id') }}</div>
                                 @endif
                             </div>
                         </div>
