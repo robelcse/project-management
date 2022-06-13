@@ -25,7 +25,8 @@ class Client extends Model
         'communication_medium',
         'communication_link',
         'date_of_birth',
-        'gender'
+        'gender',
+        'user_id'
     ];
 
 

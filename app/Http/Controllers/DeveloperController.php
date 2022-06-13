@@ -4,9 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Developer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 
 class DeveloperController extends Controller
 {
+
+    protected $user;
+    /**
+     * constructor method
+     * 
+     * create instance of user controller
+     */
+    public function __construct(UserController $user)
+    {
+        $this->user = $user;
+    }
     /**
      * Get list of developer
      * 
@@ -14,7 +27,7 @@ class DeveloperController extends Controller
      */
     public function getAllDeveloper()
     {
-        $developers = Developer::orderBy('developer_id', 'desc')->get();
+        $developers = Developer::orderBy('developer_id', 'desc')->where('user_id',Auth::user()->user_id)->get();
         return view('Developer.index', compact('developers'));
     }
 
@@ -41,16 +54,15 @@ class DeveloperController extends Controller
         $request->validate([
             'first_name'           => 'required',
             'last_name'            => 'required',
-            'email'                => 'required|email',
-            'social_profile'       => 'required',
-            'market_place_profile' => 'required',
-            'date_of_birth'        => 'required',
+            'email'                => 'required|email|unique:developers',
             'skills'               => 'required',
-            'gender'               => 'required',
-            'communication_medium' => 'required',
         ]);
 
+
+        //client role
+        $role = 2;
         $developer = Developer::create($request->all());
+        $this->user->store($request, $role);
         return redirect()->route('developer.index')->with('success', 'Developer created successfully');
     }
 
@@ -81,13 +93,8 @@ class DeveloperController extends Controller
         $request->validate([
             'first_name'           => 'required',
             'last_name'            => 'required',
-            'email'                => 'required|email',
-            'social_profile'       => 'required',
-            'market_place_profile' => 'required',
-            'date_of_birth'        => 'required',
+            'email'                => 'required|email|unique:developers',
             'skills'               => 'required',
-            'gender'               => 'required',
-            'communication_medium' => 'required',
         ]);
 
 

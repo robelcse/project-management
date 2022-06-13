@@ -7,6 +7,7 @@ use App\Models\Developer;
 use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 
 class ProjectController extends Controller
@@ -19,7 +20,7 @@ class ProjectController extends Controller
      */
     public function getAllProject()
     {
-        $projects = Project::with('tasks')->orderBy('project_id', 'desc')->get();
+        $projects = Project::with('tasks')->orderBy('project_id', 'desc')->where('user_id',Auth::user()->user_id)->get();
 
         foreach ($projects as $project) {
 

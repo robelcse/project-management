@@ -18,13 +18,18 @@ class CreateDevelopersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
-            $table->text('social_profile');
-            $table->text('market_place_profile');
-            $table->string('date_of_birth');
+            $table->text('social_profile')->nullable();
+            $table->text('market_place_profile')->nullable();
+            $table->string('date_of_birth')->nullable();
             $table->text('skills');
-            $table->string('gender')->comment('male,female');
-            $table->string('picture');
-            $table->text('communication_medium');
+            $table->string('gender')->comment('male,female')->nullable();
+            $table->string('picture')->nullable();
+            $table->text('communication_medium')->nullable();
+            $table->unsignedBigInteger('user_id');
+
+            $table->foreign('user_id')
+                ->references('user_id')->on('users')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

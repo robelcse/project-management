@@ -18,7 +18,8 @@ class Developer extends Model
         'skills',
         'gender',
         'picture',
-        'communication_medium'
+        'communication_medium',
+        'user_id'
     ];
 
 

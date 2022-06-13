@@ -21,14 +21,20 @@ class CreateClientsTable extends Migration
             $table->string('company');
             $table->string('company_website');
             $table->string('company_logo')->nullable();
-            $table->string('connect_by');
-            $table->text('social_profile');
-            $table->text('market_place_profile');
+            $table->string('connect_by')->nullable();
+            $table->text('social_profile')->nullable();
+            $table->text('market_place_profile')->nullable();
             $table->string('picture')->nullable();
-            $table->text('communication_medium');
-            $table->text('communication_link');
+            $table->text('communication_medium')->nullable();
+            $table->text('communication_link')->nullable();
             $table->string('date_of_birth')->nullable();
             $table->string('gender')->comment('male,female');
+            $table->unsignedBigInteger('user_id');
+
+            $table->foreign('user_id')
+                ->references('user_id')->on('users')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

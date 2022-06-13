@@ -13,7 +13,7 @@ Developer
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item">Developer </li>
-                    <li class="breadcrumb-item">Create</li> 
+                    <li class="breadcrumb-item">Create</li>
                 </ol>
             </div>
             <div class="col-sm-6">
@@ -45,27 +45,31 @@ Developer
             <div class="card">
 
                 <div class="card-body">
-                    <form class="needs-validation" novalidate="" method="post" action={{ url('developers') }}>
+                    <form novalidate="" method="post" action={{ url('developers') }}>
                         @csrf
                         <div class="row g-3">
                             <div class="col-md-4">
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->user_id }}" />
                                 <label class="form-label" for="validationCustom01">First name</label>
-                                <input class="form-control" id="validationCustom01" type="text" name="first_name" required="" />
-                                <div class="invalid-feedback">Please enter first name!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <input class="{{ $errors->has('first_name') ? 'form-control is-invalid':'form-control' }}" id="validationCustom01" type="text" name="first_name" required="" />
+                                @if($errors->has('first_name'))
+                                <div class="invalid-feedback">{{ $errors->first('first_name') }}</div>
+                                @endif
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label" for="validationCustom02">Last name</label>
-                                <input class="form-control" id="validationCustom02" type="text" name="last_name" required="">
-                                <div class="invalid-feedback">Please enter last name!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <input class="{{ $errors->has('last_name') ? 'form-control is-invalid':'form-control' }}" id="validationCustom02" type="text" name="last_name" required="">
+                                @if($errors->has('last_name'))
+                                <div class="invalid-feedback">{{ $errors->first('last_name') }}</div>
+                                @endif
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label" for="validationCustomUsername">Email</label>
                                 <div class="input-group"><span class="input-group-text" id="inputGroupPrepend">@</span>
-                                    <input class="form-control" id="validationCustomUsername" type="email" name="email" aria-describedby="inputGroupPrepend" required="">
-                                    <div class="invalid-feedback">Please choose a valid email!</div>
-                                    <div class="valid-feedback">Looks good!</div>
+                                    <input class="{{ $errors->has('email') ? 'form-control is-invalid':'form-control' }}" id="validationCustomUsername" type="email" name="email" aria-describedby="inputGroupPrepend" required="">
+                                    @if($errors->has('email'))
+                                    <div class="invalid-feedback">{{ $errors->first('email') }}</div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -73,54 +77,61 @@ Developer
                         <div class="row g-3">
                             <div class="col-md-4">
                                 <label class="form-label" for="validationTextarea">Skills</label>
-                                <textarea class="form-control" id="validationTextarea" name="skills" required=""></textarea>
-                                <div class="invalid-feedback">Please enter skills!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <textarea class="{{ $errors->has('skills') ? 'form-control is-invalid':'form-control' }}" id="validationTextarea" name="skills" required=""></textarea>
+                                @if($errors->has('skills'))
+                                <div class="invalid-feedback">{{ $errors->first('skills') }}</div>
+                                @endif
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label" for="validationTextarea">Socail Profile</label>
-                                <textarea class="form-control" id="validationTextarea" name="social_profile" required=""></textarea>
-                                <div class="invalid-feedback">Please enter social profile!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <textarea class="{{ $errors->has('social_profile') ? 'form-control is-invalid':'form-control' }}" id="validationTextarea" name="social_profile" required=""></textarea>
+                                @if($errors->has('social_profile'))
+                                <div class="invalid-feedback">{{ $errors->first('social_profile') }}</div>
+                                @endif
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label" for="validationTextarea">Market Place Profile</label>
-                                <textarea class="form-control" id="validationTextarea" name="market_place_profile" required=""></textarea>
-                                <div class="invalid-feedback">Please enter marketplace profile!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <textarea class="{{ $errors->has('market_place_profile') ? 'form-control is-invalid':'form-control' }}" id="validationTextarea" name="market_place_profile" required=""></textarea>
+                                @if($errors->has('market_place_profile'))
+                                <div class="invalid-feedback">{{ $errors->first('market_place_profile') }}</div>
+                                @endif
                             </div>
                         </div>
                         <div class="row g-3">
                             <div class="col-md-4">
                                 <label class="form-label" for="validationCustom02">Picture</label>
-                                <input class="form-control" type="file" name="picture" aria-label="file example" required="">
-                                <div class="invalid-feedback">Please choose a client picture!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <input class="{{ $errors->has('picture') ? 'form-control is-invalid':'form-control' }}" type="file" name="picture" aria-label="file example" required="">
+                                @if($errors->has('picture'))
+                                <div class="invalid-feedback">{{ $errors->first('picture') }}</div>
+                                @endif
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label" for="validationTextarea">Communucation Medium</label>
-                                <textarea class="form-control" id="validationTextarea" name="communication_medium" required=""></textarea>
-                                <div class="invalid-feedback">Please enter communication medium!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <textarea class="{{ $errors->has('communication_medium') ? 'form-control is-invalid':'form-control' }}" id="validationTextarea" name="communication_medium" required=""></textarea>
+                                @if($errors->has('communication_medium'))
+                                <div class="invalid-feedback">{{ $errors->first('communication_medium') }}</div>
+                                @endif
                             </div>
                         </div>
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label" for="validationCustom03">Date of Birth</label>
-                                <input class="form-control" id="validationCustom03" type="date" name="date_of_birth" required="">
-                                <div class="invalid-feedback">Please provide a valid date of birth!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                <input class="{{ $errors->has('date_of_birth') ? 'form-control is-invalid':'form-control' }}" id="validationCustom03" type="date" name="date_of_birth" required="">
+                                @if($errors->has('date_of_birth'))
+                                <div class="invalid-feedback">{{ $errors->first('date_of_birth') }}</div>
+                                @endif
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label" for="validationCustom04">Gender</label>
                                 <select class="form-select" id="validationCustom04" name="gender" required="">
-                                    <option selected="" disabled="" value="">Choose...</option>
+                                    <option selected="" disabled="" value="0">Choose...</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                     <option value="Other">Others</option>
                                 </select>
-                                <div class="invalid-feedback">Please select gender!</div>
-                                <div class="valid-feedback">Looks good!</div>
+                                @if($errors->has('gender'))
+                                <div style="color: red;font-size:0.875em;margin-top:0.25rem;">{{ $errors->first('gender') }}</div>
+                                @endif
                             </div>
                         </div>
                         <div class="mb-3">

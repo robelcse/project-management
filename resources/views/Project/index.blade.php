@@ -70,7 +70,7 @@ Project
                                         @else
                                         <span class="badge badge-danger">In-Progress</span>
                                         @endif
-                                        <a href="{{ route('task.projectWiseTask', $project->project_id) }}">
+                                        <a href="{{ route('projectWiseTask', $project->project_id) }}">
                                             <h6>{{ $project->project_name }}</h6>
                                         </a>
                                         <div class="media"><img class="img-20 me-2 rounded-circle" src="{{ asset('public/assets/images/user/3.jpg') }}" alt="" data-original-title="" title="">

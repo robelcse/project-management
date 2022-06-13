@@ -24,6 +24,7 @@ class CreateTasksTable extends Migration
             $table->integer('status')->default(0);
             $table->unsignedBigInteger('developer_id');
             $table->unsignedBigInteger('project_id');
+            $table->unsignedBigInteger('user_id');
 
             $table->foreign('developer_id')
                 ->references('developer_id')->on('developers')
@@ -31,6 +32,10 @@ class CreateTasksTable extends Migration
 
             $table->foreign('project_id')
                 ->references('project_id')->on('projects')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                ->references('user_id')->on('users')
                 ->onDelete('cascade');
 
             $table->timestamps();
