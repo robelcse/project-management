@@ -11,7 +11,7 @@ Task
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item">Task </li>
-                    <li class="breadcrumb-item">Create</li>
+                    <li class="breadcrumb-item">Edit</li>
                 </ol>
             </div>
             <div class="col-sm-6">
@@ -43,21 +43,21 @@ Task
             <div class="card">
 
                 <div class="card-body">
-                    <form novalidate="" method="post" action={{ url('tasks') }}>
+                    <form novalidate="" method="post" action={{ url('project/'.$project_id.'/tasks/'.$task->task_id.'/update') }}>
                         @csrf
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->user_id }}" />
+                                <input type="hidden" name="project_id" value="{{ $project_id }}" />
                                 <input type="hidden" name="status" value="0" />
                                 <label class="form-label" for="validationCustom01">Title</label>
-                                <input class="{{ $errors->has('title') ? 'form-control is-invalid':'form-control' }}" id="validationCustom01" type="text" name="title" required="" />
+                                <input class="{{ $errors->has('title') ? 'form-control is-invalid':'form-control' }}" id="validationCustom01" type="text" name="title" value="{{ $task->title }}" required="" />
                                 @if($errors->has('title'))
                                 <div class="invalid-feedback">{{ $errors->first('title') }}</div>
                                 @endif
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label" for="validationTextarea">Description</label>
-                                <textarea class="{{ $errors->has('description') ? 'form-control is-invalid':'form-control' }}" id="validationTextarea" name="description" rows="1" required=""></textarea>
+                                <textarea class="{{ $errors->has('description') ? 'form-control is-invalid':'form-control' }}" id="validationTextarea" name="description" rows="1" required="">{{ $task->description }}</textarea>
                                 @if($errors->has('description'))
                                 <div class="invalid-feedback">{{ $errors->first('description') }}</div>
                                 @endif
@@ -66,14 +66,14 @@ Task
                         <div class="row g-3">
                             <div class="col-md-4">
                                 <label class="form-label" for="validationCustom01">Start Date</label>
-                                <input class="{{ $errors->has('start_date') ? 'form-control is-invalid':'form-control' }}" id="validationCustom01" type="date" name="start_date" required="" />
+                                <input class="{{ $errors->has('start_date') ? 'form-control is-invalid':'form-control' }}" id="validationCustom01" type="date" name="start_date" value="{{ $task->start_date }}" required="" />
                                 @if($errors->has('start_date'))
                                 <div class="invalid-feedback">{{ $errors->first('start_date') }}</div>
                                 @endif
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label" for="validationCustom01">Due Date</label>
-                                <input class="{{ $errors->has('due_date') ? 'form-control is-invalid':'form-control' }}" id="validationCustom01" type="date" name="due_date" required="" />
+                                <input class="{{ $errors->has('due_date') ? 'form-control is-invalid':'form-control' }}" id="validationCustom01" type="date" name="due_date" value="{{ $task->due_date }}" required="" />
                                 @if($errors->has('due_date'))
                                 <div class="invalid-feedback">{{ $errors->first('due_date') }}</div>
                                 @endif
@@ -82,9 +82,9 @@ Task
                                 <label class="form-label" for="validationCustom04">Priority</label>
                                 <select class="form-select" id="validationCustom04" name="priority" required="">
                                     <option selected="" disabled="" value="0">Select priority...</option>
-                                    <option value="Hight">Hight</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="Low">Low</option>
+                                    <option {{ $task->priority == 'Hight' ? 'selected':''}} value="Hight">Hight</option>
+                                    <option {{ $task->priority == 'Medium' ? 'selected':''}} value="Medium">Medium</option>
+                                    <option {{ $task->priority == 'Low' ? 'selected':''}} value="Low">Low</option>
                                 </select>
                                 @if($errors->has('priority'))
                                 <div style="color: red;font-size:0.875em;margin-top:0.25rem;">{{ $errors->first('priority') }}</div>
@@ -97,23 +97,11 @@ Task
                                 <select class="form-select" id="validationCustom04" name="developer_id" required="">
                                     <option selected="" disabled="" value="0">Select Developer...</option>
                                     @foreach($developers as $developer)
-                                    <option value="{{ $developer->developer_id }}">{{ $developer->first_name.' '.$developer->last_name }}</option>
+                                    <option {{ $task->developer_id  == $developer->developer_id ? 'selected':'' }} value="{{ $developer->developer_id }}">{{ $developer->first_name.' '.$developer->last_name }}</option>
                                     @endforeach
                                 </select>
                                 @if($errors->has('developer_id'))
                                 <div style="color: red;font-size:0.875em;margin-top:0.25rem;">{{ $errors->first('developer_id') }}</div>
-                                @endif
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label" for="validationCustom04">Project</label>
-                                <select class="form-select" id="validationCustom04" name="project_id" required="">
-                                    <option selected="" disabled="" value="0">Select Project...</option>
-                                    @foreach($projects as $project)
-                                    <option value="{{ $project->project_id }}">{{ $project->project_name }}</option>
-                                    @endforeach
-                                </select>
-                                @if($errors->has('project_id'))
-                                <div style="color: red;font-size:0.875em;margin-top:0.25rem;">{{ $errors->first('project_id') }}</div>
                                 @endif
                             </div>
                         </div>

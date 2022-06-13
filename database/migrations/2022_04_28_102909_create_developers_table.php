@@ -25,6 +25,11 @@ class CreateDevelopersTable extends Migration
             $table->string('gender')->comment('male,female')->nullable();
             $table->string('picture')->nullable();
             $table->text('communication_medium')->nullable();
+            $table->unsignedBigInteger('user_id');
+
+            $table->foreign('user_id')
+                ->references('user_id')->on('users')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

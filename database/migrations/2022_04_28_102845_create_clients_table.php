@@ -29,6 +29,12 @@ class CreateClientsTable extends Migration
             $table->text('communication_link')->nullable();
             $table->string('date_of_birth')->nullable();
             $table->string('gender')->comment('male,female');
+            $table->unsignedBigInteger('user_id');
+
+            $table->foreign('user_id')
+                ->references('user_id')->on('users')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

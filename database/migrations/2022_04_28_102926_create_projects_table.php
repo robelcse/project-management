@@ -19,6 +19,7 @@ class CreateProjectsTable extends Migration
             $table->text('description');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('developer_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('budget');
             $table->string('start_date');
             $table->string('end_date');
@@ -29,12 +30,17 @@ class CreateProjectsTable extends Migration
             $table->integer('status')->default(0);
 
 
+
             $table->foreign('client_id')
                 ->references('client_id')->on('clients')
                 ->onDelete('cascade');
 
             $table->foreign('developer_id')
                 ->references('developer_id')->on('developers')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                ->references('user_id')->on('users')
                 ->onDelete('cascade');
 
             $table->timestamps();

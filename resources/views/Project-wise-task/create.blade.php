@@ -11,7 +11,7 @@ Task
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item">Task </li>
-                    <li class="breadcrumb-item">Create</li> 
+                    <li class="breadcrumb-item">Create</li>
                 </ol>
             </div>
             <div class="col-sm-6">
@@ -47,6 +47,7 @@ Task
                         @csrf
                         <div class="row g-3">
                             <div class="col-md-6">
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->user_id }}" />
                                 <input type="hidden" name="project_id" value="{{ $project_id }}" />
                                 <input type="hidden" name="status" value="0" />
                                 <label class="form-label" for="validationCustom01">Title</label>

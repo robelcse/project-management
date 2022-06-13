@@ -47,6 +47,7 @@ Project
                         @csrf
                         <div class="row g-3">
                             <div class="col-md-6">
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->user_id }}" />
                                 <label class="form-label" for="validationCustom01">Project Name</label>
                                 <input class="{{ $errors->has('project_name') ? 'form-control is-invalid':'form-control' }}" id="validationCustom01" type="text" name="project_name" required="" />
                                 @if($errors->has('project_name'))

@@ -94,10 +94,10 @@ Task
                                     <td>{{ $task->developer->first_name.' '.$task->developer->last_name }}</td>
                                     <td>
                                         <a class="me-2" href="{{ url('taskprogress/'.$task->task_id.'/show') }}"><i data-feather="link"></i></a>
-                                        <a href="{{ url('task/'.$task->task_id.'/edit') }}"><i data-feather="more-horizontal"></i></a>
+                                        <a href="{{ url('project/'.$project_id.'/tasks/'.$task->task_id.'/edit') }}"><i data-feather="more-horizontal"></i></a>
 
                                         <a href="#" onclick="projectWiseTaskDelete('{{$task->task_id}}')"><i data-feather="trash-2"></i></a>
-                                        <form id="delete-{{ $task->task_id }}" action="{{ url('project/'.$task->task_id.'/tasks/delete') }}" method="post" style="display: none;">
+                                        <form id="delete-{{ $task->task_id }}" action="{{ url('project/'.$project_id.'/tasks/'.$task->task_id.'/delete') }}" method="post" style="display: none;">
                                             @csrf
                                             @method('DELETE')
                                         </form>

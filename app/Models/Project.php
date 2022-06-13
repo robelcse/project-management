@@ -20,7 +20,8 @@ class Project extends Model
         'technologies',
         'live_link',
         'demo_link',
-        'git_link'
+        'git_link',
+        'user_id'
     ];
 
     /**
@@ -28,7 +29,7 @@ class Project extends Model
      */
     public function client()
     {
-        return $this->belongsTo(Client::class,'client_id','client_id');
+        return $this->belongsTo(Client::class, 'client_id', 'client_id');
     }
 
     /**
@@ -36,7 +37,7 @@ class Project extends Model
      */
     public function developer()
     {
-        return $this->belongsTo(Developer::class,'developer_id','developer_id');
+        return $this->belongsTo(Developer::class, 'developer_id', 'developer_id');
     }
 
 
@@ -45,7 +46,6 @@ class Project extends Model
      */
     public function tasks()
     {
-        return $this->hasMany(Task::class,'project_id','project_id');
+        return $this->hasMany(Task::class, 'project_id', 'project_id');
     }
-
 }

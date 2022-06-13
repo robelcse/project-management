@@ -49,6 +49,7 @@ Client
                         @csrf
                         <div class="row g-3">
                             <div class="col-md-4">
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->user_id }}" />
                                 <label class="form-label" for="validationCustom01">First name</label>
                                 <input class="{{ $errors->has('first_name') ? 'form-control is-invalid':'form-control' }}" id="validationCustom01" type="text" name="first_name" required="" />
                                 @if($errors->has('first_name'))

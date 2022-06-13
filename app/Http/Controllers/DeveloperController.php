@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Developer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 
 class DeveloperController extends Controller
 {
@@ -26,7 +27,7 @@ class DeveloperController extends Controller
      */
     public function getAllDeveloper()
     {
-        $developers = Developer::orderBy('developer_id', 'desc')->get();
+        $developers = Developer::orderBy('developer_id', 'desc')->where('user_id',Auth::user()->user_id)->get();
         return view('Developer.index', compact('developers'));
     }
 

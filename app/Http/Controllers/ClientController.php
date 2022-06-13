@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -26,7 +27,7 @@ class ClientController extends Controller
      */
     public function getAllClient()
     {
-        $clients = Client::orderBy('client_id', 'desc')->get();
+        $clients = Client::orderBy('client_id', 'desc')->where('user_id',Auth::user()->user_id)->get();
         return view('Client.index', compact('clients'));
     }
 

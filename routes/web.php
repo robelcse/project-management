@@ -119,7 +119,9 @@ Route::prefix('tasks')->name('task.')->controller(TaskController::class)->group(
 Route::get('/project/{project_id}/tasks',[TaskController::class,'projectWiseTasks'])->name('projectWiseTask');
 Route::get('/project/{project_id}/tasks/create',[TaskController::class,'projectWiseTaskCreate'])->name('projectWiseTaskCreate');
 Route::post('/project/tasks/store',[TaskController::class,'projectWiseTaskStore'])->name('projectWiseTaskStore');
-Route::delete('/project/{project_id}/tasks/delete',[TaskController::class,'projectWiseTaskDelete'])->name('projectWiseTaskDelete');
+Route::delete('/project/{project_id}/tasks/{task_id}/delete',[TaskController::class,'projectWiseTaskDelete'])->name('projectWiseTaskDelete');
+Route::get('/project/{project_id}/tasks/{task_id}/edit',[TaskController::class,'projectWiseTaskEdit'])->name('projectWiseTaskEdit');
+Route::post('/project/{project_id}/tasks/{task_id}/update',[TaskController::class,'projectWiseTaskUpdate'])->name('projectWiseTaskUpdate');
 
 
 /**
